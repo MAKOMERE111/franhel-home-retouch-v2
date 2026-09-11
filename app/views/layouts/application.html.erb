@@ -18,42 +18,51 @@
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:wght@600;700&family=Work+Sans:wght@400;500;600&display=swap">
+
     <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
 
-  <body class="bg-stone-50 text-stone-900">
-    <header class="border-b border-stone-200 bg-white">
-      <nav class="container mx-auto flex items-center justify-between px-5 py-4">
-        <%= link_to "Franhel Home Retouch", root_path, class: "font-semibold tracking-tight text-lg" %>
+  <body class="bg-ground text-ink font-sans antialiased">
+    <header class="border-b border-line bg-surface">
+      <nav class="container mx-auto flex items-center justify-between gap-4 px-5 py-4">
+        <%= link_to root_path, class: "font-display text-lg font-semibold tracking-tight text-ink" do %>
+          Franhel <span class="text-brand">Home Retouch</span>
+        <% end %>
 
-        <div class="flex items-center gap-4 text-sm">
+        <div class="flex items-center gap-5 text-sm">
           <% if client_signed_in? %>
-            <%= link_to "My requests", services_path, class: "text-stone-700 hover:text-stone-950" %>
+            <%= link_to "My requests", services_path, class: "text-ink-muted hover:text-ink" %>
             <% if current_client.admin? %>
-              <%= link_to "Admin", admin_root_path, class: "text-stone-700 hover:text-stone-950" %>
+              <%= link_to "Admin", admin_root_path, class: "text-ink-muted hover:text-ink" %>
             <% end %>
-            <span class="text-stone-400">|</span>
-            <span class="text-stone-500"><%= current_client.display_name %></span>
-            <%= button_to "Log out", destroy_client_session_path, method: :delete, class: "text-stone-700 hover:text-stone-950 underline" %>
+            <span class="hidden text-line sm:inline">|</span>
+            <span class="hidden text-ink-muted sm:inline"><%= current_client.display_name %></span>
+            <%= button_to "Log out", destroy_client_session_path, method: :delete, class: "text-ink-muted underline hover:text-ink" %>
           <% else %>
-            <%= link_to "Log in", new_client_session_path, class: "text-stone-700 hover:text-stone-950" %>
-            <%= link_to "Sign up", new_client_registration_path, class: "rounded-md bg-orange-600 px-3 py-1.5 text-white hover:bg-orange-700" %>
+            <%= link_to "Log in", new_client_session_path, class: "text-ink-muted hover:text-ink" %>
+            <%= link_to "Sign up", new_client_registration_path, class: "rounded-md bg-brand px-3.5 py-1.5 font-medium text-brand-ink hover:bg-brand-hover" %>
           <% end %>
         </div>
       </nav>
     </header>
 
-    <main class="container mx-auto max-w-4xl px-5 py-10">
+    <main class="container mx-auto max-w-4xl px-5 py-12">
       <% if notice %>
-        <p class="mb-6 rounded-md bg-emerald-50 px-4 py-3 text-sm text-emerald-800"><%= notice %></p>
+        <p class="mb-6 rounded-lg bg-good-soft px-4 py-3 text-sm text-good"><%= notice %></p>
       <% end %>
       <% if alert %>
-        <p class="mb-6 rounded-md bg-red-50 px-4 py-3 text-sm text-red-800"><%= alert %></p>
+        <p class="mb-6 rounded-lg bg-danger-soft px-4 py-3 text-sm text-danger"><%= alert %></p>
       <% end %>
 
       <%= yield %>
     </main>
+
+    <footer class="mt-20 border-t border-line py-8">
+      <p class="container mx-auto px-5 text-sm text-ink-muted">Franhel Home Retouch &mdash; renovation, without the runaround.</p>
+    </footer>
   </body>
 </html>

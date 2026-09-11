@@ -1,1 +1,36 @@
 @import "tailwindcss";
+
+/*
+  Franhel Home Retouch — visual identity tokens.
+
+  Palette is built around the business's existing brand accent (a burnt
+  terracotta, close to the "orangered" used on the original site) set
+  against warm, plaster-like neutrals rather than pure white/grey — the
+  business is in the business of surfaces and materials, the UI should
+  feel like it belongs to the same world.
+*/
+@theme {
+  --color-ground: #ede6da;
+  --color-surface: #ffffff;
+  --color-surface-2: #f5efe4;
+  --color-ink: #241e17;
+  --color-ink-muted: #6e6153;
+  --color-line: #dcd0bc;
+
+  --color-brand: #c1501f;
+  --color-brand-hover: #a6431a;
+  --color-brand-soft: #f6dfce;
+  --color-brand-ink: #ffffff;
+
+  --color-good: #3f7d4e;
+  --color-good-soft: #dceedd;
+  --color-warn: #b5791e;
+  --color-warn-soft: #f5e6c8;
+  --color-info: #33628f;
+  --color-info-soft: #dce7f0;
+  --color-danger: #b23a2e;
+  --color-danger-soft: #f5deda;
+
+  --font-display: "Bitter", Georgia, "Times New Roman", serif;
+  --font-sans: "Work Sans", ui-sans-serif, system-ui, sans-serif;
+}
