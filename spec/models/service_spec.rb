@@ -48,7 +48,7 @@ RSpec.describe Service, type: :model do
       service = build_service
       service.save!
 
-      service.quote!
+      service.send_quote!
       expect(service.status).to eq("quoted")
 
       service.schedule!
@@ -68,7 +68,7 @@ RSpec.describe Service, type: :model do
     it "cannot be cancelled once completed" do
       service = build_service
       service.save!
-      service.quote!
+      service.send_quote!
       service.schedule!
       service.complete!
 

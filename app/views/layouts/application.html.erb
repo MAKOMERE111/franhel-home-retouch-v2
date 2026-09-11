@@ -31,8 +31,11 @@
         <div class="flex items-center gap-4 text-sm">
           <% if client_signed_in? %>
             <%= link_to "My requests", services_path, class: "text-stone-700 hover:text-stone-950" %>
+            <% if current_client.admin? %>
+              <%= link_to "Admin", admin_root_path, class: "text-stone-700 hover:text-stone-950" %>
+            <% end %>
             <span class="text-stone-400">|</span>
-            <span class="text-stone-500"><%= current_client.email %></span>
+            <span class="text-stone-500"><%= current_client.display_name %></span>
             <%= button_to "Log out", destroy_client_session_path, method: :delete, class: "text-stone-700 hover:text-stone-950 underline" %>
           <% else %>
             <%= link_to "Log in", new_client_session_path, class: "text-stone-700 hover:text-stone-950" %>
@@ -42,7 +45,7 @@
       </nav>
     </header>
 
-    <main class="container mx-auto max-w-3xl px-5 py-10">
+    <main class="container mx-auto max-w-4xl px-5 py-10">
       <% if notice %>
         <p class="mb-6 rounded-md bg-emerald-50 px-4 py-3 text-sm text-emerald-800"><%= notice %></p>
       <% end %>

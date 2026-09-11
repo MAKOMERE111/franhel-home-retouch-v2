@@ -1,0 +1,26 @@
+<% content_for :title, "Admin" %>
+
+<h1 class="text-2xl font-semibold tracking-tight mb-8">Admin</h1>
+
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
+  <%= link_to services_path, class: "block rounded-lg border border-stone-200 bg-white p-5 hover:border-orange-300" do %>
+    <p class="text-3xl font-semibold tabular-nums"><%= @open_requests_count %></p>
+    <p class="mt-1 text-sm text-stone-500">Open requests</p>
+  <% end %>
+
+  <%= link_to admin_portfolio_pieces_path, class: "block rounded-lg border border-stone-200 bg-white p-5 hover:border-orange-300" do %>
+    <p class="text-3xl font-semibold tabular-nums"><%= @portfolio_count %></p>
+    <p class="mt-1 text-sm text-stone-500">Portfolio pieces</p>
+  <% end %>
+
+  <%= link_to admin_service_catalog_entries_path, class: "block rounded-lg border border-stone-200 bg-white p-5 hover:border-orange-300" do %>
+    <p class="text-3xl font-semibold tabular-nums"><%= @catalog_count %></p>
+    <p class="mt-1 text-sm text-stone-500">Catalog entries</p>
+  <% end %>
+</div>
+
+<ul class="space-y-2 text-sm">
+  <li><%= link_to "All service requests →", services_path, class: "text-orange-700 hover:text-orange-900" %></li>
+  <li><%= link_to "Manage portfolio →", admin_portfolio_pieces_path, class: "text-orange-700 hover:text-orange-900" %></li>
+  <li><%= link_to "Manage service catalog →", admin_service_catalog_entries_path, class: "text-orange-700 hover:text-orange-900" %></li>
+</ul>

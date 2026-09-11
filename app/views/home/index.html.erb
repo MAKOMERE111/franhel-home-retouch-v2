@@ -14,3 +14,41 @@
     <% end %>
   </div>
 </div>
+
+<% if @portfolio_pieces.any? %>
+  <section class="mt-16">
+    <h2 class="text-xl font-semibold tracking-tight text-center mb-6">Recent work</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+      <% @portfolio_pieces.each do |piece| %>
+        <div class="rounded-lg border border-stone-200 bg-white overflow-hidden">
+          <% if piece.photo.attached? %>
+            <%= image_tag piece.photo, class: "h-40 w-full object-cover" %>
+          <% else %>
+            <div class="h-40 w-full bg-stone-100"></div>
+          <% end %>
+          <div class="p-3">
+            <p class="font-medium text-stone-900 text-sm"><%= piece.title %></p>
+            <p class="text-xs text-stone-500"><%= piece.service_type %><%= " · #{piece.year}" if piece.year.present? %></p>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </section>
+<% end %>
+
+<% if @catalog_entries.any? %>
+  <section class="mt-16">
+    <h2 class="text-xl font-semibold tracking-tight text-center mb-6">Our services</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <% @catalog_entries.each do |entry| %>
+        <div class="rounded-lg border border-stone-200 bg-white p-4">
+          <p class="font-medium text-stone-900"><%= entry.name %></p>
+          <p class="text-sm text-stone-500">From KSh <%= number_with_delimiter(entry.price.to_i) %><% if entry.duration_days.present? %> · ~<%= pluralize(entry.duration_days, "day") %><% end %></p>
+          <% if entry.description.present? %>
+            <p class="mt-2 text-sm text-stone-600"><%= entry.description %></p>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </section>
+<% end %>

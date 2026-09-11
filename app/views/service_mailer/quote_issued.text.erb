@@ -1,0 +1,7 @@
+Your quote is ready
+
+We've put together a quote for <%= @service.service %> at <%= @service.address %>.
+
+KSh <%= number_with_delimiter(@quote.price.to_i) %>
+
+<%= @quote.notes if @quote.notes.present? %>

@@ -18,4 +18,16 @@ RSpec.describe Client, type: :model do
 
     expect { client.destroy }.to change(Service, :count).by(-1)
   end
+
+  describe "#display_name" do
+    it "uses the name when present" do
+      client = Client.create!(email: "client@example.com", password: "password123", name: "Amina")
+      expect(client.display_name).to eq("Amina")
+    end
+
+    it "falls back to the email's local part when no name is set" do
+      client = Client.create!(email: "client@example.com", password: "password123")
+      expect(client.display_name).to eq("client")
+    end
+  end
 end

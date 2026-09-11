@@ -5,4 +5,8 @@ class Client < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :services, dependent: :destroy
+
+  def display_name
+    name.presence || email.split("@").first
+  end
 end

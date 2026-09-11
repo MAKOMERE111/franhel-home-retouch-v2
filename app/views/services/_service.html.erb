@@ -4,7 +4,7 @@
       <%= link_to service.service, service, class: "font-medium text-stone-900 hover:underline" %>
       <p class="mt-1 text-sm text-stone-500"><%= service.location %> · <%= service.address %></p>
       <% if current_client.admin? %>
-        <p class="mt-1 text-xs text-stone-400">Requested by <%= service.client.email %></p>
+        <p class="mt-1 text-xs text-stone-400">Requested by <%= service.client.display_name %></p>
       <% end %>
     </div>
     <span class="<%= status_badge_classes(service.status) %>"><%= service.status.humanize %></span>

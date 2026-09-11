@@ -1,0 +1,9 @@
+<h1>Your quote is ready</h1>
+
+<p>We've put together a quote for <strong><%= @service.service %></strong> at <%= @service.address %>.</p>
+
+<p style="font-size: 1.5em;"><strong>KSh <%= number_with_delimiter(@quote.price.to_i) %></strong></p>
+
+<% if @quote.notes.present? %>
+  <p><%= @quote.notes %></p>
+<% end %>

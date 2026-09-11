@@ -2,6 +2,7 @@ class Service < ApplicationRecord
   include AASM
 
   belongs_to :client
+  has_one :quote, dependent: :destroy
 
   validates :service, presence: true
   validates :location, presence: true
@@ -15,7 +16,7 @@ class Service < ApplicationRecord
     state :completed
     state :cancelled
 
-    event :quote do
+    event :send_quote do
       transitions from: :requested, to: :quoted
     end
 
@@ -29,6 +30,13 @@ class Service < ApplicationRecord
 
     event :cancel do
       transitions from: [:requested, :quoted, :scheduled], to: :cancelled
+    end
+  end
+
+  def receive_quote!(price_cents:, notes: nil)
+    transaction do
+      build_quote(price_cents: price_cents, notes: notes).save!
+      send_quote!
     end
   end
 end

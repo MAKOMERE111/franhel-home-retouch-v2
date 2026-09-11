@@ -1,7 +1,19 @@
 Rails.application.routes.draw do
   devise_for :clients
 
-  resources :services
+  resources :services do
+    resources :quotes, only: [:create]
+
+    member do
+      patch :cancel
+    end
+  end
+
+  namespace :admin do
+    root to: "dashboard#index"
+    resources :portfolio_pieces
+    resources :service_catalog_entries
+  end
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.
