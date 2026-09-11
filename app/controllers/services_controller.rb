@@ -11,7 +11,10 @@ class ServicesController < ApplicationController
   end
 
   def new
-    @service = current_client.services.build
+    # `service`/`description` may arrive prefilled from the 3D landing
+    # experience's "Request this..." CTAs — harmless to build with here
+    # since nothing is persisted until the client submits the real form.
+    @service = current_client.services.build(params.permit(:service, :description))
     authorize @service
   end
 

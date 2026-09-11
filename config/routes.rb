@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :clients
+  devise_for :clients, controllers: { sessions: "clients/sessions" }
 
   resources :services do
     resources :quotes, only: [:create]

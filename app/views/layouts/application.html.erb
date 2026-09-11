@@ -24,10 +24,13 @@
     <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+    <% if content_for?(:three_house) %>
+      <%= javascript_include_tag "three_house", defer: true %>
+    <% end %>
   </head>
 
-  <body class="bg-ground text-ink font-sans antialiased">
-    <header class="border-b border-line bg-surface">
+  <body class="bg-ground text-ink font-sans antialiased<%= " overflow-hidden" if content_for?(:full_bleed) %>">
+    <header class="relative z-10 border-b border-line bg-surface">
       <nav class="container mx-auto flex items-center justify-between gap-4 px-5 py-4">
         <%= link_to root_path, class: "font-display text-lg font-semibold tracking-tight text-ink" do %>
           Franhel <span class="text-brand">Home Retouch</span>
@@ -50,19 +53,25 @@
       </nav>
     </header>
 
-    <main class="container mx-auto max-w-4xl px-5 py-12">
-      <% if notice %>
-        <p class="mb-6 rounded-lg bg-good-soft px-4 py-3 text-sm text-good"><%= notice %></p>
-      <% end %>
-      <% if alert %>
-        <p class="mb-6 rounded-lg bg-danger-soft px-4 py-3 text-sm text-danger"><%= alert %></p>
-      <% end %>
+    <% if notice %>
+      <p class="relative z-10 bg-good-soft px-5 py-3 text-center text-sm text-good"><%= notice %></p>
+    <% end %>
+    <% if alert %>
+      <p class="relative z-10 bg-danger-soft px-5 py-3 text-center text-sm text-danger"><%= alert %></p>
+    <% end %>
 
-      <%= yield %>
-    </main>
+    <% if content_for?(:full_bleed) %>
+      <main class="h-[calc(100svh-65px)] w-full">
+        <%= yield %>
+      </main>
+    <% else %>
+      <main class="container mx-auto max-w-4xl px-5 py-12">
+        <%= yield %>
+      </main>
 
-    <footer class="mt-20 border-t border-line py-8">
-      <p class="container mx-auto px-5 text-sm text-ink-muted">Franhel Home Retouch &mdash; renovation, without the runaround.</p>
-    </footer>
+      <footer class="mt-20 border-t border-line py-8">
+        <p class="container mx-auto px-5 text-sm text-ink-muted">Franhel Home Retouch &mdash; renovation, without the runaround.</p>
+      </footer>
+    <% end %>
   </body>
 </html>
