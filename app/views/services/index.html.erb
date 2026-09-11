@@ -1,0 +1,16 @@
+<% content_for :title, "My requests" %>
+
+<div class="flex items-center justify-between mb-8">
+  <h1 class="text-2xl font-semibold tracking-tight"><%= current_client.admin? ? "All requests" : "My requests" %></h1>
+  <%= link_to "New request", new_service_path, class: "rounded-md bg-orange-600 px-4 py-2 text-sm text-white hover:bg-orange-700" %>
+</div>
+
+<% if @services.empty? %>
+  <p class="text-stone-500">No requests yet.</p>
+<% else %>
+  <ul id="services" class="space-y-3">
+    <% @services.each do |service| %>
+      <%= render "service", service: service %>
+    <% end %>
+  </ul>
+<% end %>

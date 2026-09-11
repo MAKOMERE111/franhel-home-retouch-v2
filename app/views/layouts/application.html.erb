@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= content_for(:title) || "Franhel Home Retouch V2" %></title>
+    <title><%= content_for(:title) || "Franhel Home Retouch" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="application-name" content="Franhel Home Retouch V2">
+    <meta name="application-name" content="Franhel Home Retouch">
     <meta name="mobile-web-app-capable" content="yes">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -23,8 +23,33 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-    <main class="container mx-auto mt-28 px-5 flex">
+  <body class="bg-stone-50 text-stone-900">
+    <header class="border-b border-stone-200 bg-white">
+      <nav class="container mx-auto flex items-center justify-between px-5 py-4">
+        <%= link_to "Franhel Home Retouch", root_path, class: "font-semibold tracking-tight text-lg" %>
+
+        <div class="flex items-center gap-4 text-sm">
+          <% if client_signed_in? %>
+            <%= link_to "My requests", services_path, class: "text-stone-700 hover:text-stone-950" %>
+            <span class="text-stone-400">|</span>
+            <span class="text-stone-500"><%= current_client.email %></span>
+            <%= button_to "Log out", destroy_client_session_path, method: :delete, class: "text-stone-700 hover:text-stone-950 underline" %>
+          <% else %>
+            <%= link_to "Log in", new_client_session_path, class: "text-stone-700 hover:text-stone-950" %>
+            <%= link_to "Sign up", new_client_registration_path, class: "rounded-md bg-orange-600 px-3 py-1.5 text-white hover:bg-orange-700" %>
+          <% end %>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container mx-auto max-w-3xl px-5 py-10">
+      <% if notice %>
+        <p class="mb-6 rounded-md bg-emerald-50 px-4 py-3 text-sm text-emerald-800"><%= notice %></p>
+      <% end %>
+      <% if alert %>
+        <p class="mb-6 rounded-md bg-red-50 px-4 py-3 text-sm text-red-800"><%= alert %></p>
+      <% end %>
+
       <%= yield %>
     </main>
   </body>

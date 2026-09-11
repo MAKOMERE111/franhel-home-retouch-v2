@@ -1,0 +1,41 @@
+<% content_for :title, @service.service %>
+
+<div class="flex items-start justify-between mb-8">
+  <div>
+    <h1 class="text-2xl font-semibold tracking-tight"><%= @service.service %></h1>
+    <span class="<%= status_badge_classes(@service.status) %> mt-2"><%= @service.status.humanize %></span>
+  </div>
+  <div class="flex gap-3 text-sm">
+    <%= link_to "Edit", edit_service_path(@service), class: "text-stone-600 hover:text-stone-900" %>
+    <%= button_to "Cancel request", @service, method: :delete, class: "text-red-600 hover:text-red-800", form: { data: { turbo_confirm: "Cancel this request?" } } %>
+  </div>
+</div>
+
+<dl class="space-y-4 text-sm">
+  <div>
+    <dt class="text-stone-500">Property</dt>
+    <dd class="text-stone-900"><%= @service.location %></dd>
+  </div>
+  <div>
+    <dt class="text-stone-500">Address</dt>
+    <dd class="text-stone-900"><%= @service.address %></dd>
+  </div>
+  <div>
+    <dt class="text-stone-500">Contact</dt>
+    <dd class="text-stone-900"><%= @service.contact_info %></dd>
+  </div>
+  <div>
+    <dt class="text-stone-500">Description</dt>
+    <dd class="text-stone-900 whitespace-pre-line"><%= @service.description %></dd>
+  </div>
+  <% if current_client.admin? %>
+    <div>
+      <dt class="text-stone-500">Requested by</dt>
+      <dd class="text-stone-900"><%= @service.client.email %></dd>
+    </div>
+  <% end %>
+</dl>
+
+<p class="mt-8">
+  <%= link_to "← Back to requests", services_path, class: "text-sm text-stone-600 hover:text-stone-900" %>
+</p>

@@ -1,0 +1,16 @@
+<% content_for :title, "Franhel Home Retouch" %>
+
+<div class="text-center">
+  <h1 class="text-3xl font-semibold tracking-tight text-stone-900">Renovation, without the runaround</h1>
+  <p class="mt-4 text-stone-600">
+    Tell us what your place needs — painting, plumbing, electrical, tiling — and we'll take it from there.
+  </p>
+
+  <div class="mt-8">
+    <% if client_signed_in? %>
+      <%= link_to "Request a service", new_service_path, class: "inline-block rounded-md bg-orange-600 px-5 py-2.5 text-white hover:bg-orange-700" %>
+    <% else %>
+      <%= link_to "Create an account", new_client_registration_path, class: "inline-block rounded-md bg-orange-600 px-5 py-2.5 text-white hover:bg-orange-700" %>
+    <% end %>
+  </div>
+</div>
