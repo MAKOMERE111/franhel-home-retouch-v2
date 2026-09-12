@@ -1,9 +1,5 @@
 import { motion } from "framer-motion";
-
-const VARIANTS = [
-  { key: "classic", label: "Classic (cone shade)" },
-  { key: "modern", label: "Modern (drum shade)" },
-];
+import { FIXTURE_VARIANTS } from "../imageManifest";
 
 export default function ElectricalOverlay({ variant, on, onPickVariant, onToggle, onRequest, onBack }) {
   return (
@@ -17,7 +13,7 @@ export default function ElectricalOverlay({ variant, on, onPickVariant, onToggle
       <p className="mt-1 text-sm text-ink-muted">Fixture style, and a quick on/off check.</p>
 
       <div className="mt-4 flex gap-2">
-        {VARIANTS.map((v) => (
+        {FIXTURE_VARIANTS.map((v) => (
           <button
             key={v.key}
             type="button"

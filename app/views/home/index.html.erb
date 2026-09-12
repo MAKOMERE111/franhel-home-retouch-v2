@@ -1,9 +1,9 @@
 <% content_for :title, "Franhel Home Retouch" %>
-<% content_for :full_bleed %>
-<% content_for :three_house %>
+<% content_for :full_bleed, "true" %>
+<% content_for :house_experience, "true" %>
 
 <div
-  id="three-house-root"
+  id="house-experience-root"
   data-client="<%= client_signed_in? ? { name: current_client.display_name, admin: current_client.admin? }.to_json : "null" %>"
   class="h-full w-full"
 ></div>

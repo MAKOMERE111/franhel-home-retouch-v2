@@ -2,7 +2,7 @@ import { createRoot } from "react-dom/client";
 import HouseExperience from "./HouseExperience";
 
 function mount() {
-  const el = document.getElementById("three-house-root");
+  const el = document.getElementById("house-experience-root");
   if (!el || el.dataset.mounted === "true") return;
 
   let initialClient = null;
@@ -24,5 +24,5 @@ if (document.readyState === "loading") {
 }
 
 // Turbo Drive caches and restores pages; re-mount on each visit so the
-// canvas isn't left stale after a back/forward navigation.
+// experience isn't left stale after a back/forward navigation.
 document.addEventListener("turbo:load", mount);

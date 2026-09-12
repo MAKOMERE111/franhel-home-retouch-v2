@@ -1,16 +1,8 @@
 import { motion } from "framer-motion";
-
-const SWATCHES = [
-  { name: "Terracotta Clay", value: "#c1501f" },
-  { name: "Warm Plaster", value: "#ede6da" },
-  { name: "Deep Forest", value: "#2f5d43" },
-  { name: "Charcoal", value: "#3a342c" },
-  { name: "Soft Sand", value: "#d9c9a8" },
-  { name: "Slate Blue", value: "#3d5a73" },
-];
+import { PAINT_SWATCHES } from "../imageManifest";
 
 export default function PaintOverlay({ color, onPick, onRequest, onBack }) {
-  const selected = SWATCHES.find((s) => s.value === color) ?? SWATCHES[0];
+  const selected = PAINT_SWATCHES.find((s) => s.value === color) ?? PAINT_SWATCHES[0];
 
   return (
     <motion.div
@@ -23,7 +15,7 @@ export default function PaintOverlay({ color, onPick, onRequest, onBack }) {
       <p className="mt-1 text-sm text-ink-muted">Pick a color for this wall.</p>
 
       <div className="mt-4 grid grid-cols-6 gap-2">
-        {SWATCHES.map((swatch) => (
+        {PAINT_SWATCHES.map((swatch) => (
           <button
             key={swatch.value}
             type="button"

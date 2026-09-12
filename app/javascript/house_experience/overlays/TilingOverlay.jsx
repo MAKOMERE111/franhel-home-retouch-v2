@@ -1,14 +1,8 @@
 import { motion } from "framer-motion";
+import { TILE_VARIANTS } from "../imageManifest";
 
-const TILES = [
-  { name: "Warm Terracotta", value: "#b5652f" },
-  { name: "Cloud Grey", value: "#c9c7c1" },
-  { name: "Charcoal Slate", value: "#4a4640" },
-  { name: "Sandstone", value: "#d3c2a1" },
-];
-
-export default function TilingOverlay({ color, onPick, onRequest, onBack }) {
-  const selected = TILES.find((t) => t.value === color) ?? TILES[0];
+export default function TilingOverlay({ image, onPick, onRequest, onBack }) {
+  const selected = TILE_VARIANTS.find((t) => t.image === image) ?? TILE_VARIANTS[0];
 
   return (
     <motion.div
@@ -21,16 +15,16 @@ export default function TilingOverlay({ color, onPick, onRequest, onBack }) {
       <p className="mt-1 text-sm text-ink-muted">Choose a tile finish for this floor.</p>
 
       <div className="mt-4 grid grid-cols-4 gap-2">
-        {TILES.map((tile) => (
+        {TILE_VARIANTS.map((tile) => (
           <button
-            key={tile.value}
+            key={tile.image}
             type="button"
-            onClick={() => onPick(tile.value)}
+            onClick={() => onPick(tile.image)}
             className={`overflow-hidden rounded-lg border-2 transition ${
-              tile.value === color ? "border-brand" : "border-line"
+              tile.image === image ? "border-brand" : "border-line"
             }`}
           >
-            <span className="block h-12 w-full" style={{ backgroundColor: tile.value }} />
+            <img src={tile.image} alt={tile.name} className="block h-12 w-full object-cover" />
             <span className="block px-1 py-1 text-[11px] text-ink-muted">{tile.name}</span>
           </button>
         ))}

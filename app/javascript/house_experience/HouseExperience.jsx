@@ -1,27 +1,23 @@
 import { useCallback, useState } from "react";
-import { Canvas } from "@react-three/fiber";
-import { Suspense } from "react";
-import CameraRig from "./CameraRig";
-import Lighting from "./scene/Lighting";
-import PlaceholderHouse from "./scene/PlaceholderHouse";
-import AmbientDrift from "./scene/AmbientDrift";
-import LoadingScreen from "./LoadingScreen";
+import HouseStage from "./stage/HouseStage";
 import LoginOverlay from "./overlays/LoginOverlay";
 import PaintOverlay from "./overlays/PaintOverlay";
 import TilingOverlay from "./overlays/TilingOverlay";
 import ElectricalOverlay from "./overlays/ElectricalOverlay";
-import { frameFor } from "./cameraFrames";
+import { PAINT_SWATCHES, TILE_VARIANTS, FIXTURE_VARIANTS } from "./imageManifest";
 
-const OPENING_DURATION_MS = 1400;
+const OPENING_DURATION_MS = 1000;
 
 export default function HouseExperience({ initialClient }) {
   const [client, setClient] = useState(initialClient);
   const [stage, setStage] = useState(initialClient ? "interior" : "exterior");
 
-  const [paintColor, setPaintColor] = useState("#ede6da");
-  const [tileColor, setTileColor] = useState("#c9c7c1");
-  const [fixtureVariant, setFixtureVariant] = useState("classic");
+  const [paintColor, setPaintColor] = useState(PAINT_SWATCHES[1].value); // Warm Plaster
+  const [tileImage, setTileImage] = useState(TILE_VARIANTS[0].image);
+  const [fixtureVariant, setFixtureVariant] = useState(FIXTURE_VARIANTS[0].key);
   const [fixtureOn, setFixtureOn] = useState(true);
+
+  const fixtureImage = FIXTURE_VARIANTS.find((f) => f.key === fixtureVariant).image;
 
   const handleLoggedIn = useCallback((data) => {
     setClient(data);
@@ -38,24 +34,14 @@ export default function HouseExperience({ initialClient }) {
 
   return (
     <div className="relative h-full w-full">
-      <Canvas shadows camera={{ fov: 45 }}>
-        <color attach="background" args={["#dfe7ea"]} />
-        <fog attach="fog" args={["#dfe7ea", 12, 30]} />
-
-        <CameraRig frame={frameFor(stage)} />
-        <Lighting fixtureOn={fixtureOn} fixtureIntensity={1} />
-        <AmbientDrift active={stage === "exterior"} />
-
-        <Suspense fallback={<LoadingScreen />}>
-          <PlaceholderHouse
-            stage={stage}
-            paintColor={paintColor}
-            tileColor={tileColor}
-            fixtureVariant={fixtureVariant}
-            onSelectZone={(zone) => setStage(`zone:${zone}`)}
-          />
-        </Suspense>
-      </Canvas>
+      <HouseStage
+        stage={stage}
+        tileImage={tileImage}
+        fixtureImage={fixtureImage}
+        fixtureOn={fixtureOn}
+        paintColor={paintColor}
+        onSelectZone={(zone) => setStage(`zone:${zone}`)}
+      />
 
       <div className="pointer-events-none absolute inset-0">
         {stage === "exterior" && <LoginOverlay onLoggedIn={handleLoggedIn} />}
@@ -71,8 +57,8 @@ export default function HouseExperience({ initialClient }) {
 
         {stage === "zone:tiling" && (
           <TilingOverlay
-            color={tileColor}
-            onPick={setTileColor}
+            image={tileImage}
+            onPick={setTileImage}
             onBack={backToHub}
             onRequest={(tile) => requestService("Floor Tiling", `Selected tile: ${tile.name}`)}
           />

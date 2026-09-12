@@ -24,8 +24,8 @@
     <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
-    <% if content_for?(:three_house) %>
-      <%= javascript_include_tag "three_house", defer: true %>
+    <% if content_for?(:house_experience) %>
+      <%= javascript_include_tag "house_experience", defer: true %>
     <% end %>
   </head>
 
