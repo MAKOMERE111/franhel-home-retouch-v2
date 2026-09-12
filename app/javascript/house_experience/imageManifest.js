@@ -1,58 +1,63 @@
 // The single seam between "code" and "actual photos." Every real photo you
 // source replaces one path here — nothing else in the component tree needs
-// to change. Hotspot rectangles are percentages of the interior hub image's
-// own frame (top/left/width/height), matching the wireframe regions drawn
-// into interior-hub.svg so the placeholder is self-documenting.
-
+// to change.
+//
+// Hotspot rectangles are percentages of the interior hub photo's own frame.
+// These were estimated by eye against the sourced photo (a vaulted-ceiling
+// living room) — I can't visually verify pixel alignment myself, so treat
+// them as a starting point and nudge the numbers after looking at the live
+// page; the wall hotspot in particular is a smaller, less obvious region in
+// this photo than the wireframe placeholder implied (the room is mostly
+// glass on the right, wood-panelled stairs on the left).
 const BASE = "/images/house";
 
 export const IMAGES = {
-  exteriorBase: `${BASE}/exterior-closed.svg`,
-  doorCutout: `${BASE}/door-cutout.svg`,
-  interiorHub: `${BASE}/interior-hub.svg`,
+  exteriorBase: `${BASE}/exterior-closed.jpg`,
+  doorCutout: `${BASE}/door-cutout.svg`, // still a placeholder — cut the real door out of exterior-closed.jpg as its own transparent layer
+  interiorHub: `${BASE}/interior-hub.jpg`,
 };
 
 // Door cutout's position/size as a % of the exterior image's frame — must
-// match where the doorway is drawn in exterior-closed.svg (or wherever the
-// real doorway sits once that's a photo). transformOrigin is the hinge
-// edge for the rotateY swing in DoorLayer.jsx — "left center" for a door
-// that opens away from the camera, hinged on its left.
+// match where the doorway actually sits once door-cutout.svg is replaced
+// with a real cutout of exterior-closed.jpg's door. transformOrigin is the
+// hinge edge for the rotateY swing in DoorLayer.jsx.
 export const DOOR_FRAME = {
-  top: "52.2%",
-  left: "46.75%",
-  width: "11.25%",
-  height: "23.3%",
+  top: "48%",
+  left: "42%",
+  width: "13%",
+  height: "30%",
   transformOrigin: "left center",
 };
 
 export const ZONES = {
   paint: {
     label: "Paint Job",
-    closeUp: `${BASE}/zone-paint.svg`,
-    hotspot: { top: "18%", left: "8%", width: "24%", height: "44%" },
+    closeUp: `${BASE}/zone-paint.jpg`,
+    hotspot: { top: "8%", left: "1%", width: "16%", height: "28%" },
   },
   tiling: {
     label: "Tiling",
-    closeUp: `${BASE}/zone-tiling.svg`,
-    hotspot: { top: "62%", left: "42%", width: "38%", height: "32%" },
+    // No separate base close-up needed — HouseStage always shows the
+    // currently-selected TILE_VARIANTS image for this zone.
+    hotspot: { top: "68%", left: "12%", width: "45%", height: "26%" },
   },
   electrical: {
     label: "Electrical",
-    closeUp: `${BASE}/zone-electrical.svg`,
-    hotspot: { top: "6%", left: "44%", width: "12%", height: "14%" },
+    // Same as tiling — FIXTURE_VARIANTS supplies the image.
+    hotspot: { top: "8%", left: "38%", width: "16%", height: "22%" },
   },
 };
 
 export const TILE_VARIANTS = [
-  { name: "Warm Terracotta", image: `${BASE}/tile-terracotta.svg` },
-  { name: "Cloud Grey", image: `${BASE}/tile-grey.svg` },
-  { name: "Charcoal Slate", image: `${BASE}/tile-charcoal.svg` },
-  { name: "Sandstone", image: `${BASE}/tile-sandstone.svg` },
+  { name: "Warm Terracotta", image: `${BASE}/tile-terracotta.jpg` },
+  { name: "Cloud Grey", image: `${BASE}/tile-grey.jpg` },
+  { name: "Charcoal Slate", image: `${BASE}/tile-charcoal.jpg` },
+  { name: "Sandstone", image: `${BASE}/tile-sandstone.jpg` },
 ];
 
 export const FIXTURE_VARIANTS = [
-  { key: "classic", label: "Classic (cone shade)", image: `${BASE}/fixture-classic.svg` },
-  { key: "modern", label: "Modern (drum shade)", image: `${BASE}/fixture-modern.svg` },
+  { key: "classic", label: "Classic (cone shade)", image: `${BASE}/fixture-classic.jpg` },
+  { key: "modern", label: "Modern (drum shade)", image: `${BASE}/fixture-modern.jpg` },
 ];
 
 export const PAINT_SWATCHES = [
