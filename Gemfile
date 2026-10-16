@@ -71,4 +71,4 @@ gem "pundit", "~> 2.5"
 # Pin below 3.0: json 3.0 changed JSON.parse's argument handling in a way
 # that's incompatible with how activesupport 8.1.3.1 decrypts session
 # cookies, breaking every request that carries a session cookie.
-gem "json", "< 3.0"
+gem "json", "< 4.0"
